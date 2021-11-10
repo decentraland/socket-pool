@@ -2,6 +2,6 @@
  * A function that does something
  * @public
  */
-export function example(){
+export function example() {
   return true
 }

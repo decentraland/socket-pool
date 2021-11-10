@@ -1,8 +1,8 @@
-import { example } from "../src"
-import expect from "expect"
+import { example } from '../src'
+import expect from 'expect'
 
-describe("unit", () => {
-  it("smoke test", () => {
+describe('unit', () => {
+  it('smoke test', () => {
     expect(example()).toEqual(true)
   })
 })
