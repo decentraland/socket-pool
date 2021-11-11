@@ -4,7 +4,7 @@ LOCAL_ARG = --local --verbose --diagnostics
 endif
 
 test:
-	node_modules/.bin/jest --detectOpenHandles --silent=false --verbose=false--colors --runInBand $(TESTARGS)
+	node_modules/.bin/jest --detectOpenHandles --silent=false --colors --runInBand $(TESTARGS)
 
 test-watch:
 	node_modules/.bin/jest --detectOpenHandles --colors --runInBand --watch $(TESTARGS)
@@ -15,6 +15,6 @@ build:
 	./node_modules/.bin/api-extractor run $(LOCAL_ARG) --typescript-compiler-folder ./node_modules/typescript
 
 lint:
-	eslint . --ext .ts
+	eslint . --ext .ts --fix
 
 .PHONY: build test

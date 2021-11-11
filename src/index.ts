@@ -1,4 +1,3 @@
-import { IBaseComponent } from '@well-known-components/interfaces'
 import future from 'fp-future'
 
 import { pickElement, sleep } from './utils'
@@ -6,22 +5,22 @@ import {
   DesiredAmountParameter,
   ISocketPoolComponent,
   IComponents,
-  ISocketResult
+  ISocketResult,
+  MetricMapping
 } from './types'
 
-export type SocketEvents = {
-  connected: void
-  disconnected: void
-  error: { error: any }
-}
+export * from './types'
+export { poolHandler } from './http-handler'
 
-type MetricKeys = 'desired' | 'connected'
-type MetricMapping = Record<MetricKeys, string>
+/**
+ * Creates a socket pool runner. Receives the same arguments as Lifecycle.run
+ * @public
+ */
 
 export function createSocketPoolComponent<Socket>(
-  components: IComponents<Socket>,
+  components: Omit<IComponents<Socket>, 'pool'>,
   metricMapping: MetricMapping
-): IBaseComponent & ISocketPoolComponent {
+): ISocketPoolComponent {
   const logger = components.logs.getLogger('socket-pool')
   const sockets = new Set<ISocketResult>()
   const connectedSockets = new Set<ISocketResult>()
@@ -78,6 +77,7 @@ export function createSocketPoolComponent<Socket>(
         })
 
         sock.on('disconnected', () => {
+          console.log('disconnected')
           sockets.delete(sock)
           if (connectedSockets.delete(sock)) {
             components.metrics.decrement('comms_perf_peers_connected', {})
@@ -137,9 +137,6 @@ export function createSocketPoolComponent<Socket>(
     },
     async stop() {
       loopRunning = false
-    },
-    restart() {
-      loopRunning = true
     },
     getSockets() {
       return new Set(sockets)
