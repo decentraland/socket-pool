@@ -1,37 +1,40 @@
 {
-  "name": "@well-known-components/base-component",
+  "name": "@well-known-components/socket-pool",
   "version": "1.0.0",
-  "description": "base component",
+  "description": "Socket pool component",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "scripts": {
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint --fix . --ext .ts"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/well-known-components/base-component.git"
+    "url": "git+https://github.com/decentraland/socket-pool.git"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/well-known-components/base-component/issues"
+    "url": "https://github.com/decentraland/socket-pool/issues"
   },
   "prettier": {
     "printWidth": 120,
     "semi": false
   },
-  "homepage": "https://github.com/well-known-components/base-component#readme",
+  "homepage": "https://github.com/decentraland/socket-pool#readme",
   "devDependencies": {
     "@dcl/eslint-config": "^1.0.0",
     "@microsoft/api-extractor": "^7.17.0",
     "@types/jest": "^27.0.1",
+    "@types/sinon": "^10.0.6",
     "jest": "^27.0.6",
+    "sinon": "^12.0.1",
     "ts-jest": "^27.0.5",
     "typescript": "^4.3.5"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@well-known-components/interfaces": "^1.1.0",
+    "mitt": "^3.0.0"
+  }
 }
