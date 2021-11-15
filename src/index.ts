@@ -18,7 +18,7 @@ export { poolHandler } from './http-handler'
  */
 
 export function createSocketPoolComponent<Socket>(
-  components: Omit<IComponents<Socket>, 'pool'>,
+  components: Pick<IComponents<Socket>, 'logs' | 'metrics' | 'socketCreator'>,
   metricMapping: MetricMapping
 ): ISocketPoolComponent {
   const logger = components.logs.getLogger('socket-pool')

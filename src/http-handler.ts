@@ -2,7 +2,7 @@ import { IHttpServerComponent } from '@well-known-components/interfaces'
 import { IComponents } from './types'
 
 export type HandlerContext = IHttpServerComponent.DefaultContext<{
-  components: IComponents
+  components: Pick<IComponents, 'pool' | 'logs'>
 }>
 
 /**

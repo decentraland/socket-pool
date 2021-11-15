@@ -13,7 +13,7 @@ import { IMetricsComponent } from '@well-known-components/interfaces';
 // Warning: (ae-incompatible-release-tags) The symbol "createSocketPoolComponent" is marked as @public, but its signature references "IComponents" which is marked as @internal
 //
 // @public
-export function createSocketPoolComponent<Socket>(components: Omit<IComponents<Socket>, 'pool'>, metricMapping: MetricMapping): ISocketPoolComponent;
+export function createSocketPoolComponent<Socket>(components: Pick<IComponents<Socket>, 'logs' | 'metrics' | 'socketCreator'>, metricMapping: MetricMapping): ISocketPoolComponent;
 
 // @public (undocumented)
 export type DesiredAmountParameter = {

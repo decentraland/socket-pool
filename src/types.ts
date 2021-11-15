@@ -18,33 +18,33 @@ export type MetricMapping = Record<MetricKeys, string>
 /**
  * @public
  */
-export type SocketEvents<T = unknown> = {
+export type SocketEvents<E = unknown> = {
   connected: unknown
   disconnected: unknown
   error: { error: unknown }
-} & T
+} & E
 
 /**
  * @public
  */
-export type ISocketResult<T = unknown> = T & {
+export type ISocketResult<S = unknown> = S & {
   stop(): void
 } & Emitter<SocketEvents>
 
 /**
  * @public
  */
-export type ISocketCreatorComponent<T = unknown> = {
-  createSocket(): ISocketResult<T>
+export type ISocketCreatorComponent<S = unknown> = {
+  createSocket(): ISocketResult<S>
 }
 
 /**
  * @internal
  */
-export type IComponents<Socket = unknown> = {
+export type IComponents<S = unknown> = {
   logs: ILoggerComponent
   metrics: IMetricsComponent<string>
-  socketCreator: ISocketCreatorComponent<Socket>
+  socketCreator: ISocketCreatorComponent<S>
   pool: ISocketPoolComponent
 }
 
@@ -68,8 +68,8 @@ export type DesiredAmountParameter = {
 /**
  * @public
  */
-export type ISocketPoolComponent = IBaseComponent & {
+export type ISocketPoolComponent<S = unknown> = IBaseComponent & {
   setDesiredAmount(param: DesiredAmountParameter): void
-  getSockets(): Set<ISocketResult>
-  getConnectedSockets(): Set<ISocketResult>
+  getSockets(): Set<ISocketResult<S>>
+  getConnectedSockets(): Set<ISocketResult<S>>
 }
