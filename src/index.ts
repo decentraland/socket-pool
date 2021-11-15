@@ -37,7 +37,7 @@ export function createSocketPoolComponent<Socket>(
 
   function refreshMetrics() {
     components.metrics.observe(
-      metricMapping.connected,
+      metricMapping.desired,
       {},
       desiredParameters.peers
     )
@@ -71,7 +71,7 @@ export function createSocketPoolComponent<Socket>(
 
         sock.on('connected', () => {
           connectedSockets.add(sock)
-          components.metrics.increment('comms_perf_peers_connected', {})
+          components.metrics.increment(metricMapping.connected, {})
           refreshMetrics()
           mutex.resolve()
         })
@@ -80,7 +80,7 @@ export function createSocketPoolComponent<Socket>(
           console.log('disconnected')
           sockets.delete(sock)
           if (connectedSockets.delete(sock)) {
-            components.metrics.decrement('comms_perf_peers_connected', {})
+            components.metrics.decrement(metricMapping.connected, {})
           }
           refreshMetrics()
           mutex.resolve()
