@@ -76,7 +76,6 @@ test('socket pool sanity flow', ({ components, stubComponents }) => {
 
   it('should create 10 sockets, and then timeout and destroy them', async () => {
     const { pool } = components
-    console.log(pool.getSockets().size)
     const { socketCreator } = stubComponents
 
     expect(pool.getSockets().size).toEqual(0)
