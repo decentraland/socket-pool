@@ -13,7 +13,7 @@ import { IMetricsComponent } from '@well-known-components/interfaces';
 // Warning: (ae-incompatible-release-tags) The symbol "createSocketPoolComponent" is marked as @public, but its signature references "IComponents" which is marked as @internal
 //
 // @public
-export function createSocketPoolComponent<Socket>(components: Pick<IComponents<Socket>, 'logs' | 'metrics' | 'socketCreator'>, metricMapping: MetricMapping): ISocketPoolComponent;
+export function createSocketPoolComponent<S>(components: Pick<IComponents<S>, 'logs' | 'metrics' | 'socketCreator'>, metricMapping: MetricMapping): ISocketPoolComponent<S>;
 
 // @public (undocumented)
 export type DesiredAmountParameter = {
@@ -26,34 +26,34 @@ export type DesiredAmountParameter = {
 // Warning: (ae-internal-missing-underscore) The name "GlobalContext" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type GlobalContext = {
-    components: IComponents;
+export type GlobalContext<S = unknown> = {
+    components: IComponents<S>;
 };
 
 // Warning: (ae-internal-missing-underscore) The name "IComponents" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export type IComponents<Socket = unknown> = {
+export type IComponents<S = unknown> = {
     logs: ILoggerComponent;
     metrics: IMetricsComponent<string>;
-    socketCreator: ISocketCreatorComponent<Socket>;
-    pool: ISocketPoolComponent;
+    socketCreator: ISocketCreatorComponent<S>;
+    pool: ISocketPoolComponent<S>;
 };
 
 // @public (undocumented)
-export type ISocketCreatorComponent<T = unknown> = {
-    createSocket(): ISocketResult<T>;
+export type ISocketCreatorComponent<S = unknown> = {
+    createSocket(): ISocketResult<S>;
 };
 
 // @public (undocumented)
-export type ISocketPoolComponent = IBaseComponent & {
+export type ISocketPoolComponent<S = unknown> = IBaseComponent & {
     setDesiredAmount(param: DesiredAmountParameter): void;
-    getSockets(): Set<ISocketResult>;
-    getConnectedSockets(): Set<ISocketResult>;
+    getSockets(): Set<ISocketResult<S>>;
+    getConnectedSockets(): Set<ISocketResult<S>>;
 };
 
 // @public (undocumented)
-export type ISocketResult<T = unknown> = T & {
+export type ISocketResult<S = unknown> = S & {
     stop(): void;
 } & Emitter<SocketEvents>;
 
@@ -77,13 +77,13 @@ export function poolHandler(context: HandlerContext): Promise<{
 }>;
 
 // @public (undocumented)
-export type SocketEvents<T = unknown> = {
+export type SocketEvents<E = unknown> = {
     connected: unknown;
     disconnected: unknown;
     error: {
         error: unknown;
     };
-} & T;
+} & E;
 
 // (No @packageDocumentation comment for this package)
 

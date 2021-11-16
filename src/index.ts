@@ -17,13 +17,13 @@ export { poolHandler } from './http-handler'
  * @public
  */
 
-export function createSocketPoolComponent<Socket>(
-  components: Pick<IComponents<Socket>, 'logs' | 'metrics' | 'socketCreator'>,
+export function createSocketPoolComponent<S>(
+  components: Pick<IComponents<S>, 'logs' | 'metrics' | 'socketCreator'>,
   metricMapping: MetricMapping
-): ISocketPoolComponent {
+): ISocketPoolComponent<S> {
   const logger = components.logs.getLogger('socket-pool')
-  const sockets = new Set<ISocketResult>()
-  const connectedSockets = new Set<ISocketResult>()
+  const sockets = new Set<ISocketResult<S>>()
+  const connectedSockets = new Set<ISocketResult<S>>()
   let loopRunning = true
 
   const desiredParameters: DesiredAmountParameter = {
@@ -77,7 +77,6 @@ export function createSocketPoolComponent<Socket>(
         })
 
         sock.on('disconnected', () => {
-          console.log('disconnected')
           sockets.delete(sock)
           if (connectedSockets.delete(sock)) {
             components.metrics.decrement(metricMapping.connected, {})

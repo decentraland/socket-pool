@@ -45,14 +45,14 @@ export type IComponents<S = unknown> = {
   logs: ILoggerComponent
   metrics: IMetricsComponent<string>
   socketCreator: ISocketCreatorComponent<S>
-  pool: ISocketPoolComponent
+  pool: ISocketPoolComponent<S>
 }
 
 /**
  * @internal
  */
-export type GlobalContext = {
-  components: IComponents
+export type GlobalContext<S = unknown> = {
+  components: IComponents<S>
 }
 
 /**

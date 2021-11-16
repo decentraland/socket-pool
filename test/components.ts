@@ -5,7 +5,8 @@ import { createLogComponent } from '@well-known-components/logger'
 import { createConfigComponent } from '@well-known-components/env-config-provider'
 import {
   createRunner,
-  createLocalFetchCompoment
+  createLocalFetchCompoment,
+  defaultServerConfig
 } from '@well-known-components/test-helpers'
 import {
   Router,
@@ -87,7 +88,7 @@ async function main({ startComponents, components }) {
 }
 
 async function initComponents(): Promise<TestComponents> {
-  const config = createConfigComponent(process.env)
+  const config = createConfigComponent(process.env, defaultServerConfig())
   const logs = createLogComponent()
   const localFetch = await createLocalFetchCompoment(config)
   const server = await createServerComponent<GlobalContext>(

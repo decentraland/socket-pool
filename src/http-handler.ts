@@ -46,7 +46,7 @@ export async function poolHandler(context: HandlerContext) {
   }
   context.components.pool.setDesiredAmount(options)
 
-  logger.info('running lighthouse test', { peers, timeout })
+  logger.info('running pool test', { peers, timeout })
 
   return {
     body: {
